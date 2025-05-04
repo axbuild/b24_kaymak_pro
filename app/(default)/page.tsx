@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Home - Open PRO",
-  description: "Page description",
+  title: "Главная — b24.kaymak.pro",
+  description: "b24.kaymak.pro — интеграция, автоматизация и поддержка CRM Битрикс24 для бизнеса в Кыргызстане."
 };
 
 import PageIllustration from "@/components/page-illustration";

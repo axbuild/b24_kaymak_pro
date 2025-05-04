@@ -94,9 +94,9 @@ export default function ModalVideo({
               </defs>
             </svg>
             <span className="text-sm font-medium leading-tight text-gray-300">
-              Watch Demo
+              Краткая демонстрация
               <span className="text-gray-600"> - </span>
-              3:47
+              7:47
             </span>
           </span>
         </span>
@@ -118,20 +118,40 @@ export default function ModalVideo({
               transition
               className="aspect-video max-h-full w-full overflow-hidden rounded-2xl bg-black shadow-2xl duration-300 ease-out data-closed:scale-95 data-closed:opacity-0"
             >
-              <video
-                ref={videoRef}
-                width={videoWidth}
-                height={videoHeight}
-                loop
-                controls
-              >
-                <source src={video} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              {video.includes('youtube.com') || video.includes('youtu.be') ? (
+                <iframe
+                  width={videoWidth}
+                  height={videoHeight}
+                  src={`https://www.youtube.com/embed/${getYouTubeId(video)}`}
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              ) : (
+                <video
+                  ref={videoRef}
+                  width={videoWidth}
+                  height={videoHeight}
+                  loop
+                  controls
+                >
+                  <source src={video} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
             </DialogPanel>
           </div>
         </div>
       </Dialog>
     </div>
   );
+}
+
+// Добавляю функцию для извлечения ID YouTube
+function getYouTubeId(url: string): string {
+  const regExp = /^.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return match && match[1].length === 11 ? match[1] : '';
 }
