@@ -29,3 +29,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
           publish_branch: gh-pages
+
+      - name: Add CNAME file
+        run: echo "bx24.kaymak.pro" > ./out/CNAME
